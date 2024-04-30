@@ -1,11 +1,11 @@
-# resource "aws_route53_record" "redis" {
-#   zone_id = data.terraform_remote_state.vpc.outputs.PRIVATE_HOSTEDZONE_ID
-#   name    = "redis-${var.ENV}.${data.terraform_remote_state.vpc.outputs.PRIVATE_HOSTEDZONE_NAME}"
-#   type    = "CNAME"
-#   ttl     = 10
-#   records = [aws_route53_record.redis.cache_nodes.0.address]
-# }
+resource "aws_route53_record" "redis" {
+  zone_id = data.terraform_remote_state.vpc.outputs.PRIVATE_HOSTEDZONE_ID
+  name    = "redis-${var.ENV}.${data.terraform_remote_state.vpc.outputs.PRIVATE_HOSTEDZONE_NAME}"
+  type    = "CNAME"
+  ttl     = 10
+  records = [aws_elasticache_cluster.redis.cache_nodes.0.address]
+}
 
 output "REDIS_ENDPOINT" {
-    value  = aws_route53_record.redis
+    value  = aws_elasticache_cluster.redis
 }
