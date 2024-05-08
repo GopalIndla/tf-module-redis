@@ -9,3 +9,4 @@ resource "aws_route53_record" "redis" {
 output "REDIS_ENDPOINT" {
     value  = aws_elasticache_cluster.redis
 }
+
